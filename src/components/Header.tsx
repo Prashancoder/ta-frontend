@@ -175,15 +175,15 @@ const Header = () => {
         { label: "Jammu", link: "/clinics/jammu" }
       ]
     },
-    // {
-    //   label: "Shop",
-    //   submenu: [
-    //     { label: "Permanent Makeup", link: "/shop/permanent-makeup" },
-    //     { label: "Cosmetology", link: "/shop/cosmetology" },
-    //     { label: "Facial Aesthetics", link: "/shop/facial-aesthetics" }
-    //   ]
-    // },
-    // { label: "Academy", link: "/academy" },
+    {
+      label: "Shop",
+      submenu: [
+         { label: "Permanent Makeup", link: "/shop/permanent-makeup" },
+         { label: "Cosmetology", link: "/shop/cosmetology" },
+         { label: "Facial Aesthetics", link: "/shop/facial-aesthetics" }
+       ]
+     },
+     { label: "Academy", link: "/academy" },
     { label: "Contact Us", link: "/contact" },
   ];
 
@@ -248,7 +248,7 @@ const Header = () => {
                 </DropdownMenu>
               ) : (
                 <Link to="/login">
-                  {/* <Button variant="luxury" size="sm">Login</Button> */}
+                  { <Button variant="luxury" size="sm">Login</Button> }
                 </Link>
               )}
             </div>
@@ -375,9 +375,9 @@ const Header = () => {
                 </DropdownMenu>
               ) : (
                 <Link to="/login">
-                  {/* <Button variant="luxury" size="icon">
+                   <Button variant="luxury" size="icon">
                     <img src="/logo-1.png" alt="Login" className="w-6 h-6 rounded-full" />
-                  </Button> */}
+                  </Button> 
                 </Link>
               )}
 

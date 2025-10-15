@@ -1161,7 +1161,93 @@ image: "/images/dr.png", // replace with actual image
 image: "/images/dr.png", // replace with actual image
               },
               videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-          }
+          },
+
+          "laser-practice/laser-practice-page1": {
+  title: "Certificate in Advanced Laser Treatments and Skin Rejuvenation",
+  description: "Learn the art and science of advanced laser treatments for skin rejuvenation, hair reduction, and pigmentation correction from top industry experts.",
+  duration: "6 Months",
+  level: "Certificate",
+  category: "Laser Practice Courses",
+  price: "₹1,80,000",
+  image: "/images/laser1.jpg",
+  features: [
+    "Hands-on laser training",
+    "Skin rejuvenation techniques",
+    "Laser safety certification",
+    "Case-based learning",
+    "Industry-standard equipment usage"
+  ],
+  curriculum: [
+    "Introduction to laser technology",
+    "Skin anatomy and laser interaction",
+    "Hair reduction treatments",
+    "Pigmentation and tattoo removal",
+    "Laser facial rejuvenation",
+    "Post-procedure care"
+  ],
+  requirements: [
+    "Basic cosmetology knowledge",
+    "Minimum 12th pass (Science preferred)",
+    "Interest in laser and skin treatments"
+  ],
+  certification: "Certificate in Advanced Laser Treatments & Skin Rejuvenation",
+  instructor: {
+    name: "Dr. Neha Kapoor",
+    bio: "Dermatologist and Laser Specialist with 10+ years of clinical experience in advanced laser techniques.",
+    experience: "Trained over 300 professionals across India",
+    image: "/images/drneha.jpg"
+  },
+  videoUrl: "https://www.youtube.com/embed/Cz3b8x6X1Vw"
+},
+"laser-practice/laser-practice-page2": {
+  title: "Professional Diploma in Aesthetic Laser and Light-Based Therapies",
+  description: "A complete diploma course designed for medical and beauty professionals to master aesthetic laser and light-based treatments.",
+  duration: "12 Months",
+  level: "Diploma",
+  category: "Laser Practice Courses",
+  price: "₹2,80,000",
+  image: "/images/laser2.jpg",
+  features: [
+    "Comprehensive laser training",
+    "Light-based treatment modules",
+    "Hands-on clinical sessions",
+    "Certification recognized by top academies",
+    "Real case studies"
+  ],
+  curriculum: [
+    "Laser physics and safety protocols",
+    "Hair and skin laser applications",
+    "Fractional laser resurfacing",
+    "Photo facial and LED therapy",
+    "Laser tattoo and scar revision",
+    "Business setup & client handling"
+  ],
+  requirements: [
+    "Medical or beauty professional background",
+    "Basic computer knowledge",
+    "Interest in aesthetic procedures"
+  ],
+  certification: "Professional Diploma in Aesthetic Laser & Light-Based Therapies",
+  instructor: {
+    name: "Dr. Ritu Sharma",
+    bio: "Certified Laser and Aesthetic Medicine Specialist with 8+ years of experience in laser-based skin therapies.",
+    experience: "Conducted 200+ workshops on aesthetic laser treatments",
+    image: "/images/drritu.jpg"
+  },
+  videoUrl: "https://www.youtube.com/embed/dJRS8i3j8Fk"
+}
+
+
+
+
+
+
+
+
+
+
+
         };
     
     
@@ -1323,7 +1409,9 @@ image: "/images/dr.png", // replace with actual image
               </Card>
             </motion.div>
 
-            {/* Video */}
+
+
+            {/* Video (login-gated) */}
             {courseData.videoUrl && (
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -1337,14 +1425,25 @@ image: "/images/dr.png", // replace with actual image
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
-                      <iframe
-                        src={courseData.videoUrl}
-                        title="Course Intro"
-                        className="w-full h-full"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+                    {user ? (
+                      <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                        <iframe
+                          src={courseData.videoUrl}
+                          title="Course Intro"
+                          className="w-full h-full"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-4 p-8 bg-[#FFF9F0] rounded-xl border border-[#D4AF37]/30">
+                        <p className="text-[#3B2F2F] text-center">
+                          Please login to watch the free intro class.
+                        </p>
+                        <Button onClick={() => navigate('/login')} className="border-2 border-[#D4AF37] text-[#3B2F2F] hover:bg-[#D4AF37] hover:text-white">
+                          Login to Watch
+                        </Button>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>

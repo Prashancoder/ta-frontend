@@ -30,6 +30,11 @@ const CourseIndex: React.FC = () => {
       image: "/images/goo.jpg",
       link: "/courses/fellowship",
     },
+    {
+      name: "Laser Practise",
+      image: "/images/mm.webp",
+      link: "/courses/laser-practise",
+    },
   ];
 
   return (

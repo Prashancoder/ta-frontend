@@ -15,6 +15,7 @@ import PermanentMakeupPage from "./pages/PermanentMakeupPage";
 import CosmetologyPage from "./pages/CosmetologyPage";
 import FacialAestheticsPage from "./pages/FacialAestheticsPage";
 import FellowshipCoursesPage from "./pages/FellowshipCoursesPage";
+import LaserPractisePage from "./pages/LaserPractisePage";
 import Treatments from "./pages/Treatments";
 import ServicePage from "./pages/ServicePage";
 import ServiceCategoryPage from "./pages/ServiceCategoryPage";
@@ -45,7 +46,7 @@ import Logout from "./pages/Logout";
 import BookAppointment from "./pages/BookAppointment";
 import PermanentMakeupServices from "./pages/PermanentMakeupServices";
 import ServiceCategoryPagelanding from "./pages/ServiceCategoryPagelanding";
-import Servicesfacialaesthetics from "./pages/servicesfacialaesthetics";
+import Servicesfacialaesthetics from "./pages/Servicesfacialaesthetics";
 import Dentistry from "./pages/Dentistry";
 
 
@@ -89,6 +90,7 @@ const App = () => (
           <Route path="/courses/cosmetology" element={<CosmetologyPage />} />
           <Route path="/courses/facial-aesthetics" element={<FacialAestheticsPage />} />
           <Route path="/courses/fellowship" element={<FellowshipCoursesPage />} />
+          <Route path="/courses/laser-practise" element={<LaserPractisePage />} />
           {/* Fallback for nested specific course items */}
           <Route path="/courses/*" element={<CoursePage />} />
           
@@ -136,6 +138,10 @@ const App = () => (
           <Route path="/courses/fellowship/facial-aesthetics" element={<CoursePage />} />
           <Route path="/courses/fellowship/permanent-micropigmentation" element={<CoursePage />} />
           <Route path="/courses/fellowship/facial-permanent-micropigmentation" element={<CoursePage />} />
+
+          {/* Laser Practise Courses */}
+          <Route path="/courses/laser-practise/permanent-cosmetology" element={<CoursePage />} />
+          <Route path="/courses/laser-practise/facial-permanent-cosmetology" element={<CoursePage />} />
 
           {/* Service Category Pages */}
           <Route path="/services/permanent-makeup" element={<ServiceCategoryPage />} />

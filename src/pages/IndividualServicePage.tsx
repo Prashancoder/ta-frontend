@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Award, BookOpen, Star, CheckCircle, ArrowLeft } from "lucide-react";
+import { Clock, Users, Award, BookOpen, Star, CheckCircle, ArrowLeft, PlayCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
 
 interface ServiceData {
   title: string;
@@ -26,6 +27,13 @@ interface ServiceData {
     link: string;
     description: string;
   }[];
+  videoUrl?: string;
+  instructor?: {
+    name: string;
+    bio: string;
+    experience: string;
+    image?: string;
+  };
 }
 
 const IndividualServicePage = () => {
@@ -845,229 +853,324 @@ const IndividualServicePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-[#FAF8F6] flex flex-col font-lato">
       <Header />
 
       {/* Hero Section */}
-      <div 
-        className="relative text-white py-20 bg-cover bg-center bg-no-repeat"
+      <div
+        className="relative text-white py-24 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${serviceData.image})`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(${serviceData.image})`,
         }}
       >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Button variant="ghost" size="sm" asChild className="text-white hover:text-luxury-gold">
+              <Button variant="ghost" size="sm" asChild className="text-white hover:text-[#D4AF37]">
                 <Link to={`/services/${serviceData.category.toLowerCase().replace(' ', '-')}`}>
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to {serviceData.category}
                 </Link>
               </Button>
             </div>
-            <Badge variant="secondary" className="mb-4">
+            <Badge
+              variant="secondary"
+              className="mb-6 text-sm px-4 py-1 bg-white/20 backdrop-blur-sm"
+            >
               {serviceData.category} • {serviceData.subcategory}
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-playfair uppercase tracking-wide">
               {serviceData.title}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8">
-              {serviceData.description}
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 text-lg">
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                <span>{serviceData.duration}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5" />
-                <span>Professional</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                <span>Expert Care</span>
-              </div>
+            <div className="flex flex-wrap justify-center gap-6 text-lg mt-8">
+              <span className="flex items-center gap-2">
+                <Clock className="h-5 w-5" /> {serviceData.duration}
+              </span>
+              <span className="flex items-center gap-2">
+                <Award className="h-5 w-5" /> Professional
+              </span>
+              <span className="flex items-center gap-2">
+                <Users className="h-5 w-5" /> Expert Care
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid lg:grid-cols-3 gap-10">
+          {/* Left Content */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Overview */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl text-[#3B2F2F] font-playfair">
+                    <BookOpen className="h-5 w-5 text-[#D4AF37]" /> Service Overview
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-[#555] leading-relaxed text-lg">
+                    {serviceData.description}
+                  </p>
+                  <span className="block w-16 h-1 bg-[#D4AF37] mt-4 rounded"></span>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Video */}
+            {serviceData.videoUrl && (
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Card className="rounded-2xl shadow-xl overflow-hidden border-2 border-[#D4AF37]/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-xl text-[#3B2F2F] font-playfair">
+                      <PlayCircle className="h-5 w-5 text-[#D4AF37]" /> Watch Procedure Intro
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
+                      <iframe
+                        src={serviceData.videoUrl}
+                        title="Service Intro"
+                        className="w-full h-full"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Meet Your Practitioner */}
+            {serviceData.instructor && (
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-xl text-[#3B2F2F] font-playfair">
+                      <Users className="h-5 w-5 text-[#D4AF37]" /> Meet Your Practitioner
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      {serviceData.instructor.image && (
+                        <img
+                          src={serviceData.instructor.image}
+                          alt={serviceData.instructor.name}
+                          className="w-24 h-24 rounded-full object-cover border-2 border-[#D4AF37]"
+                        />
+                      )}
+                      <div>
+                        <h3 className="text-lg font-semibold text-[#3B2F2F]">
+                          {serviceData.instructor.name}
+                        </h3>
+                        <p className="text-[#555] text-sm">{serviceData.instructor.bio}</p>
+                        <p className="text-[#555] text-sm mt-1">{serviceData.instructor.experience}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Benefits */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="text-xl text-[#3B2F2F] font-playfair">Benefits</CardTitle>
+                  <CardDescription>
+                    What you can expect from our {serviceData.title.toLowerCase()} service
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {serviceData.benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-[#D4AF37] mt-0.5 flex-shrink-0" />
+                        <span className="text-[#555]">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Process */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="text-xl text-[#3B2F2F] font-playfair">Our Process</CardTitle>
+                  <CardDescription>
+                    How we deliver exceptional {serviceData.title.toLowerCase()} service
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {serviceData.process.map((step, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 bg-[#D4AF37] text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                          {index + 1}
+                        </div>
+                        <span className="text-[#555]">{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Aftercare */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="text-xl text-[#3B2F2F] font-playfair">Aftercare Instructions</CardTitle>
+                  <CardDescription>Important guidelines for optimal results</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {serviceData.aftercare.map((instruction, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-[#D4AF37] mt-0.5 flex-shrink-0" />
+                        <span className="text-[#555]">{instruction}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Contraindications */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="shadow-subtle rounded-2xl border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="text-xl text-[#3B2F2F] font-playfair">Contraindications</CardTitle>
+                  <CardDescription>Please inform us if any of these apply to you</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {serviceData.contraindications.map((contraindication, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-5 h-5 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-semibold">
+                          !
+                        </div>
+                        <span className="text-[#555]">{contraindication}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* Sidebar (Sticky) */}
+          <div className="lg:col-span-1">
+            <div className="space-y-6 sticky top-8">
+              <Card className="border-2 border-[#D4AF37]/30">
+                <CardHeader>
+                  <CardTitle className="text-[#3B2F2F] font-playfair">
+                    Service Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#555]">Duration:</span>
+                    <span className="font-semibold">{serviceData.duration}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#555]">Category:</span>
+                    <span className="font-semibold">{serviceData.category}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#555]">Price:</span>
+                    <span className="text-2xl font-bold text-[#D4AF37]">
+                      {serviceData.price}
+                    </span>
+                  </div>
+                  <Button className="w-full border-2 border-[#D4AF37] text-[#3B2F2F] hover:bg-[#D4AF37] hover:text-white transition" size="lg">
+                    Book Appointment
+                  </Button>
+                  <Button variant="outline" className="w-full border-[#D4AF37] text-[#3B2F2F] hover:bg-[#D4AF37] hover:text-white">
+                    Download Brochure
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-[#D4AF37]/20">
+                <CardHeader>
+                  <CardTitle className="text-[#3B2F2F] font-playfair">
+                    Service Features
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {serviceData.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2 text-[#555]">
+                        <Star className="h-4 w-4 text-[#D4AF37]" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Related Services */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Related Services</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {serviceData.relatedServices.map((service, index) => (
+                      <div key={index} className="border-b border-gray-100 pb-3 last:border-b-0">
+                        <Link
+                          to={service.link}
+                          className="block hover:text-[#D4AF37] transition-colors duration-200"
+                        >
+                          <h4 className="font-semibold text-sm">{service.name}</h4>
+                          <p className="text-xs text-[#777]">{service.description}</p>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Service Details */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Service Overview */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" />
-                  Service Overview
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-luxury-muted leading-relaxed">
-                  {serviceData.description}
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Benefits */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Benefits</CardTitle>
-                <CardDescription>
-                  What you can expect from our {serviceData.title.toLowerCase()} service
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {serviceData.benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-luxury-gold mt-0.5 flex-shrink-0" />
-                      <span className="text-luxury-muted">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Process */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Our Process</CardTitle>
-                <CardDescription>
-                  How we deliver exceptional {serviceData.title.toLowerCase()} service
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {serviceData.process.map((step, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 bg-luxury-gold text-white rounded-full flex items-center justify-center text-sm font-semibold">
-                        {index + 1}
-                      </div>
-                      <span className="text-luxury-muted">{step}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Aftercare */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Aftercare Instructions</CardTitle>
-                <CardDescription>
-                  Important guidelines for optimal results
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {serviceData.aftercare.map((instruction, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-luxury-gold mt-0.5 flex-shrink-0" />
-                      <span className="text-luxury-muted">{instruction}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Contraindications */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Contraindications</CardTitle>
-                <CardDescription>
-                  Please inform us if any of these apply to you
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {serviceData.contraindications.map((contraindication, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-5 h-5 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-semibold">
-                        !
-                      </div>
-                      <span className="text-luxury-muted">{contraindication}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div> 
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Service Info Card */}
-            <Card className="sticky top-8">
-              <CardHeader>
-                <CardTitle>Service Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-luxury-muted">Duration:</span>
-                  <span className="font-semibold">{serviceData.duration}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-luxury-muted">Category:</span>
-                  <span className="font-semibold">{serviceData.category}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-luxury-muted">Price:</span>
-                  <span className="text-2xl font-bold text-luxury-gold">{serviceData.price}</span>
-                </div>
-                <Button className="w-full" size="lg">
-                  Book Appointment
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Download Brochure
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Features */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Service Features</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {serviceData.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <Star className="h-5 w-5 text-luxury-gold mt-0.5 flex-shrink-0" />
-                      <span className="text-luxury-muted text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Related Services */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Related Services</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {serviceData.relatedServices.map((service, index) => (
-                    <div key={index} className="border-b border-gray-100 pb-3 last:border-b-0">
-                      <Link 
-                        to={service.link}
-                        className="block hover:text-luxury-gold transition-colors duration-200"
-                      >
-                        <h4 className="font-semibold text-sm">{service.name}</h4>
-                        <p className="text-xs text-luxury-muted">{service.description}</p>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-    
       <Footer />
     </div>
   );
