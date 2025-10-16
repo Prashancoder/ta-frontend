@@ -23,26 +23,75 @@ export const refreshMe = createAsyncThunk("auth/me", async () => {
   return data.user;
 });
 
+// export const loginThunk = createAsyncThunk(
+//   "auth/login",
+//   async (payload: { email: string; password: string }) => {
+//     const data = await apiFetch<{ user: AuthUser }>("/api/auth/login", {
+//       method: "POST",
+//       body: JSON.stringify(payload),
+//     });
+//     return data.user;
+//   }
+// );
+
+
+
 export const loginThunk = createAsyncThunk(
   "auth/login",
-  async (payload: { email: string; password: string }) => {
-    const data = await apiFetch<{ user: AuthUser }>("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-    return data.user;
+  async (payload: { email: string; password: string }, { rejectWithValue }) => {
+    const res = await apiFetch<{ user?: AuthUser; error?: string }>(
+      "/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if ("error" in res) {
+      return rejectWithValue(res.error); // ❌ wrong password → catch block
+    }
+
+    return res.user!; // login successful
   }
 );
 
+
+
+// export const signupThunk = createAsyncThunk(
+//   "auth/signup",
+//   async (payload: { name: string; email: string; password: string }) => {
+//     await apiFetch<{ message: string }>("/api/auth/signup", {
+//       method: "POST",
+//       body: JSON.stringify(payload),
+//     });
+//   }
+// );
+
+
 export const signupThunk = createAsyncThunk(
   "auth/signup",
-  async (payload: { name: string; email: string; password: string }) => {
-    await apiFetch<{ message: string }>("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
+  async (
+    payload: { name: string; email: string; password: string },
+    { rejectWithValue }
+  ) => {
+    const res = await apiFetch<{ message?: string; error?: string }>(
+      "/api/auth/signup",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }
+    );
+
+    // check if backend returned error
+    if ("error" in res) {
+      return rejectWithValue(res.error); // ❌ reject for frontend catch
+    }
+
+    return res.message; // success
   }
 );
+
+
 
 export const logoutThunk = createAsyncThunk("auth/logout", async () => {
   await apiFetch<{ message: string }>("/api/auth/logout", { method: "POST" });

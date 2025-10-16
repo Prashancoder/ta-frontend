@@ -29,13 +29,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     dispatch(refreshMe());
   }, [dispatch]);
 
+  // const login = useCallback(async (email: string, password: string) => {
+  //   await dispatch(loginThunk({ email, password }));
+  // }, [dispatch]);
+
   const login = useCallback(async (email: string, password: string) => {
-    await dispatch(loginThunk({ email, password }));
-  }, [dispatch]);
+  const result = await dispatch(loginThunk({ email, password }));
+  if (loginThunk.rejected.match(result)) {
+    throw new Error(result.payload as string); // ❌ throw for catch
+  }
+}, [dispatch]);
+
+
+  // const signup = useCallback(async (name: string, email: string, password: string) => {
+  //   await dispatch(signupThunk({ name, email, password }));
+  // }, [dispatch]);
 
   const signup = useCallback(async (name: string, email: string, password: string) => {
-    await dispatch(signupThunk({ name, email, password }));
-  }, [dispatch]);
+  const result = await dispatch(signupThunk({ name, email, password }));
+  if (signupThunk.rejected.match(result)) {
+    throw new Error(result.payload as string); // ❌ throw for catch in component
+  }
+}, [dispatch]);
+
 
   const logout = useCallback(async () => {
     await dispatch(logoutThunk());
