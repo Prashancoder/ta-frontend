@@ -12,18 +12,11 @@ import BlogSection from "@/components/BlogSection";
 
 const courses = [
   {
-    title: "Master's in Permanent Eyebrows",
+    title: "Master's in Permanent Makeup",
     link: "/courses/permanent-makeup/masters-eyebrows",
     description:
       "Master advanced eyebrow micropigmentation techniques to deliver natural and flawless results.",
     image: "/images/courses/222.jpg",
-  },
-  {
-    title: "Master class in Scalp Micropigmentation",
-    link: "/courses/permanent-makeup/master-scalp",
-    description:
-      "Learn industry-leading methods to replicate natural hair follicles and restore confidence.",
-    image: "/images/courses/000.webp",
   },
   {
     title: "PG Diploma in Permanent Make up",
@@ -32,36 +25,23 @@ const courses = [
       "A complete diploma covering all aspects of permanent makeup artistry.",
     image: "/images/courses/1.webp",
   },
+    {
+    title: "Master class in Scalp Micropigmentation",
+    link: "/courses/permanent-makeup/master-scalp",
+    description:
+      "Learn industry-leading methods to replicate natural hair follicles and restore confidence.",
+    image: "/images/courses/000.webp",
+  },
+
   {
-    title: "Certificate Course in Lip Micropigmentation",
+    title: "Master class in Medical Micropigmentation",
     link: "/courses/permanent-makeup/cert-lip",
     description:
       "Get certified in lip tinting and micropigmentation with modern techniques.",
     image: "/images/courses/2.webp",
   },
   {
-    title: "Certificate in Brows and Lash Lift",
-    link: "/courses/permanent-makeup/cert-brows-lash",
-    description:
-      "Enhance brows and lashes naturally with professional lifting methods.",
-    image: "/images/courses/3.webp",
-  },
-  {
-    title: "Certificate in Scalp Micropigmentation",
-    link: "/courses/permanent-makeup/cert-scalp",
-    description:
-      "Specialized training in scalp micropigmentation for baldness and hair thinning.",
-    image: "/images/courses/2.webp",
-  },
-  {
-    title: "Certificate course in Laser Hair Reduction",
-    link: "/courses/permanent-makeup/cert-laser-hair",
-    description:
-      "Gain expertise in safe and effective laser hair reduction techniques.",
-    image: "/images/courses/2.webp",
-  },
-  {
-    title: "Certificate Course Skin Technicial",
+    title: "Certificate Course in lash lift & tint Brow lamination and tint",
     link: "/courses/permanent-makeup/cert-skin-tech",
     description:
       "Learn the fundamentals of skin technology and advanced aesthetic care.",

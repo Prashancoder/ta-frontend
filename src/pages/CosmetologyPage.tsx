@@ -6,39 +6,18 @@ import Footer from "../components/Footer";
 
 const courses = [
   {
-    title: "Master Class in Chemical Peels",
+    title: "Certificate in Proffessional Cosmetology",
     link: "/courses/cosmetology/master-chemical-peels",
     description:
       "In-depth training on chemical peel protocols for different skin types.",
     image: "/images/courses/000.webp",
   },
   {
-    title: "Diploma in Advanced Cosmetology",
+    title: "Diploma in Cosmetology",
     link: "/courses/cosmetology/diploma-advanced",
     description:
       "Comprehensive diploma covering clinical cosmetology and advanced care.",
     image: "/images/courses/1.webp",
-  },
-  {
-    title: "Certificate in Professional Cosmetology",
-    link: "/courses/cosmetology/cert-professional",
-    description:
-      "Foundational certification to start a career in cosmetology.",
-    image: "/images/courses/2.webp",
-  },
-  {
-    title: "Certificate Course in Medicated Hydrafacial",
-    link: "/courses/cosmetology/cert-hydrafacial",
-    description:
-      "Hands-on hydrafacial certification with medicated protocols.",
-    image: "/images/courses/3.webp",
-  },
-  {
-    title: "Certificate Courses in Chemical Peels",
-    link: "/courses/cosmetology/cert-chemical-peels",
-    description:
-      "Targeted certifications in beginner to advanced chemical peel routines.",
-    image: "/images/courses/222.jpg",
   },
 ];
 

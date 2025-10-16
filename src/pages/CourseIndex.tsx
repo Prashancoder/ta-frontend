@@ -122,6 +122,11 @@ Enroll Now
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
               </div>
 
+
+
+
+
+
               {/* Content - Glass effect */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="bg-white/80 backdrop-blur-md rounded-xl p-4 shadow-lg group-hover:bg-white/90 transition">
